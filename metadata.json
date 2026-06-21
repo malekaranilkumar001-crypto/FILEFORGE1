@@ -1,0 +1,6 @@
+{
+  "name": "FileForge",
+  "description": "Professional on-device client-side file utility toolkit including PDF, Image tools and document converters.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
