@@ -140,6 +140,10 @@ function updateStructuredData(data: any) {
 }
 
 function updateSEO(path: string) {
+  if (typeof window !== 'undefined' && (window as any).updateSEO) {
+    (window as any).updateSEO(path);
+    return;
+  }
   let cleanPath = path.toLowerCase().trim();
   if (cleanPath.endsWith('/') && cleanPath.length > 1) {
     cleanPath = cleanPath.slice(0, -1);
@@ -1897,6 +1901,32 @@ export default function App() {
                 title="Download Netlify _redirects configuration file"
               >
                 📄 Netlify Redirects
+              </button>
+              <span className="text-border-dark">·</span>
+              <button 
+                type="button" 
+                onClick={(e) => { 
+                  e.preventDefault(); 
+                  const ds = (window as any).downloadSitemap;
+                  if (ds) ds();
+                }} 
+                className="hover:text-primary-accent text-text-sub transition-colors bg-transparent border-none p-0 cursor-pointer flex items-center gap-1"
+                title="Download sitemap.xml"
+              >
+                Sitemap
+              </button>
+              <span className="text-border-dark">·</span>
+              <button 
+                type="button" 
+                onClick={(e) => { 
+                  e.preventDefault(); 
+                  const dr = (window as any).downloadRobotsTxt;
+                  if (dr) dr();
+                }} 
+                className="hover:text-primary-accent text-text-sub transition-colors bg-transparent border-none p-0 cursor-pointer flex items-center gap-1"
+                title="Download robots.txt"
+              >
+                Robots.txt
               </button>
               <span className="text-border-dark">·</span>
               <button 

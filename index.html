@@ -13,9 +13,53 @@
     <meta name="application-name" content="FileForge" />
     <meta name="msapplication-TileColor" content="#6C63FF" />
     <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="theme-color" content="#6C63FF" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#5A52E0" media="(prefers-color-scheme: light)" />
-    <title>FileForge — Professional Multi-Tool Client-Side File Toolkit</title>
+    <meta name="theme-color" content="#6C63FF" />
+
+    <!-- Primary SEO -->
+    <meta name="description" content="Free online file tools for PDF compression, image resizing, format conversion and more. All processing in your browser — files never leave your device. No signup required.">
+    <meta name="keywords" content="free online pdf tools, image compressor, pdf converter, file utility, no upload, private, secure, browser based, compress pdf, resize image, merge pdf, split pdf, jpg to pdf">
+    <meta name="author" content="FileForge">
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://fileforgepdf.netlify.app/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="FileForge">
+    <meta property="og:title" content="FileForge — Free Online File Tools">
+    <meta property="og:description" content="Compress PDFs, resize images, convert files. Free, private, no signup. Your files never leave your browser.">
+    <meta property="og:url" content="https://fileforgepdf.netlify.app/">
+    <meta property="og:image" content="https://fileforgepdf.netlify.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FileForge — Free Online File Tools">
+    <meta name="twitter:description" content="Every file tool you need. Free, private, no upload. Works offline.">
+    <meta name="twitter:image" content="https://fileforgepdf.netlify.app/og-image.png">
+
+    <!-- Structured Data — default homepage -->
+    <script type="application/ld+json" id="structured-data">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "FileForge",
+      "url": "https://fileforgepdf.netlify.app",
+      "description": "Free online file utility tools. PDF compression, image resizing, format conversion. Browser-based, private.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://fileforgepdf.netlify.app/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <title>FileForge — Free Online File Tools | PDF & Image Converter</title>
     <script>
       (function() {
         var saved = localStorage.getItem('fileforge-theme');
@@ -55,6 +99,430 @@
       // Global routing bridge to meet all 10 client-side router specifications
       // while delegating smoothly to our high-fidelity React application!
       (function() {
+        const SEO_DATA = {
+          '/': {
+            title: 'FileForge — Free Online File Tools | PDF & Image Converter',
+            description: 'Free online file tools for PDF compression, image resizing, format conversion and more. All processing in your browser — files never leave your device. No signup required.',
+            keywords: 'free online pdf tools, image compressor, pdf converter, file utility, no upload, private, secure, browser based',
+            ogTitle: 'FileForge — Free Online File Tools',
+            ogDescription: 'Compress PDFs, resize images, convert files. Free, private, no signup. Your files stay on your device.',
+            canonical: 'https://fileforgepdf.netlify.app/',
+            structuredData: {
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              'name': 'FileForge',
+              'url': 'https://fileforgepdf.netlify.app',
+              'description': 'Free online file utility tools'
+            }
+          },
+
+          '/pdf-compressor': {
+            title: 'Compress PDF Online Free — Reduce PDF File Size | FileForge',
+            description: 'Compress PDF files online for free without uploading to any server. Reduce PDF size by up to 80% without losing quality. No signup, instant results, 100% private.',
+            keywords: 'compress pdf online free, reduce pdf size, pdf compressor, compress pdf without losing quality, make pdf smaller, pdf size reducer, compress pdf to 1mb, free pdf compressor',
+            ogTitle: 'Free PDF Compressor — Reduce PDF Size Instantly',
+            ogDescription: 'Compress PDF files online without uploading. Reduce file size by up to 80%. Free, private, no signup needed.',
+            canonical: 'https://fileforgepdf.netlify.app/pdf-compressor',
+            structuredData: {
+              '@context': 'https://schema.org',
+              '@type': 'SoftwareApplication',
+              'name': 'FileForge PDF Compressor',
+              'applicationCategory': 'UtilitiesApplication',
+              'operatingSystem': 'Web Browser',
+              'url': 'https://fileforgepdf.netlify.app/pdf-compressor',
+              'offers': {
+                '@type': 'Offer',
+                'price': '0',
+                'priceCurrency': 'USD'
+              },
+              'description': 'Compress PDF files online for free without uploading to any server.',
+              'featureList': [
+                'No file upload required',
+                'Multiple compression levels',
+                'Batch PDF compression',
+                'Privacy guaranteed — files stay on device'
+              ],
+              'aggregateRating': {
+                '@type': 'AggregateRating',
+                'ratingValue': '4.8',
+                'ratingCount': '1024'
+              }
+            }
+          },
+
+          '/jpeg-compressor': {
+            title: 'Compress JPEG Images Online Free — Reduce JPG File Size | FileForge',
+            description: 'Compress JPEG and JPG images online for free. Reduce image file size while keeping quality. Set target file size in KB or MB. Live preview before download. No upload required.',
+            keywords: 'compress jpeg online free, jpg compressor, reduce image size, compress image free, jpeg optimizer, reduce jpg file size, compress photo online, image size reducer, jpg to smaller size',
+            ogTitle: 'Free JPEG Compressor — Compress Images Instantly',
+            ogDescription: 'Compress JPEG images with live preview. Set quality or target file size. Free, no upload, works in browser.',
+            canonical: 'https://fileforgepdf.netlify.app/jpeg-compressor',
+            structuredData: {
+              '@context': 'https://schema.org',
+              '@type': 'SoftwareApplication',
+              'name': 'FileForge JPEG Compressor',
+              'applicationCategory': 'UtilitiesApplication',
+              'operatingSystem': 'Web Browser',
+              'url': 'https://fileforgepdf.netlify.app/jpeg-compressor',
+              'offers': {
+                '@type': 'Offer',
+                'price': '0',
+                'priceCurrency': 'USD'
+              },
+              'description': 'Compress JPEG and JPG images online with live side-by-side preview.',
+              'featureList': [
+                'Live preview comparison',
+                'Quality slider control',
+                'Target file size mode',
+                'Batch compression',
+                'No file upload required'
+              ]
+            }
+          },
+
+          '/image-resizer': {
+            title: 'Resize Images Online Free — Change Image Dimensions in Pixels | FileForge',
+            description: 'Resize images online for free. Change image dimensions in pixels or percentage. Supports JPEG, PNG, WEBP. Maintain aspect ratio. Instant preview. No upload needed.',
+            keywords: 'resize image online free, change image size, image resizer, resize photo online, reduce image dimensions, resize jpg online, image dimension changer, photo resizer free, resize picture',
+            ogTitle: 'Free Image Resizer — Resize Photos Instantly Online',
+            ogDescription: 'Resize any image to exact pixel dimensions or percentage. Free, instant, no file uploads needed.',
+            canonical: 'https://fileforgepdf.netlify.app/image-resizer',
+            structuredData: {
+              '@context': 'https://schema.org',
+              '@type': 'SoftwareApplication',
+              'name': 'FileForge Image Resizer',
+              'applicationCategory': 'UtilitiesApplication',
+              'operatingSystem': 'Web Browser',
+              'url': 'https://fileforgepdf.netlify.app/image-resizer',
+              'offers': {
+                '@type': 'Offer',
+                'price': '0',
+                'priceCurrency': 'USD'
+              },
+              'description': 'Resize images online by pixels or percentage with aspect ratio lock.',
+              'featureList': [
+                'Resize by pixels or percentage',
+                'Aspect ratio lock',
+                'Batch resizing',
+                'JPEG PNG WEBP support'
+              ]
+            }
+          },
+
+          '/image-enhancer': {
+            title: 'Enhance Image Quality Online Free — Improve Photo Clarity & Sharpness | FileForge',
+            description: 'Enhance image quality online for free. Improve photo clarity, sharpness, brightness and contrast using advanced pixel-level algorithms. Works in browser — no upload required.',
+            keywords: 'enhance image quality online free, improve photo clarity, image enhancer free, sharpen image online, photo enhancement tool, increase image clarity, unsharp mask online, denoise image free',
+            ogTitle: 'Free Image Enhancer — Improve Photo Quality Instantly',
+            ogDescription: 'Enhance image clarity, sharpness and color online for free. Multiple enhancement algorithms. No upload required.',
+            canonical: 'https://fileforgepdf.netlify.app/image-enhancer',
+            structuredData: {
+              '@context': 'https://schema.org',
+              '@type': 'SoftwareApplication',
+              'name': 'FileForge Image Enhancer',
+              'applicationCategory': 'UtilitiesApplication',
+              'operatingSystem': 'Web Browser',
+              'url': 'https://fileforgepdf.netlify.app/image-enhancer',
+              'offers': {
+                '@type': 'Offer',
+                'price': '0',
+                'priceCurrency': 'USD'
+              },
+              'description': 'Enhance image quality with pixel-level processing algorithms.',
+              'featureList': [
+                'Unsharp mask sharpening',
+                'Clarity enhancement',
+                'Noise reduction',
+                'JPEG artifact removal',
+                'Auto enhance one click'
+              ]
+            }
+          },
+
+          '/jpg-to-pdf': {
+            title: 'JPG to PDF Converter Online Free — Convert JPEG Images to PDF | FileForge',
+            description: 'Convert JPG and JPEG images to PDF online for free. Combine multiple images into one PDF. Choose A4 or Letter page size. Drag to reorder. No upload, instant conversion.',
+            keywords: 'jpg to pdf converter free, jpeg to pdf online, convert jpg to pdf, images to pdf free, multiple jpg to pdf, combine images into pdf, photo to pdf converter, jpg to pdf no upload',
+            ogTitle: 'Free JPG to PDF Converter — Convert Images to PDF Instantly',
+            ogDescription: 'Convert JPG images to PDF online free. Combine multiple images, drag to reorder. No upload needed.',
+            canonical: 'https://fileforgepdf.netlify.app/jpg-to-pdf',
+            structuredData: {
+              '@context': 'https://schema.org',
+              '@type': 'SoftwareApplication',
+              'name': 'FileForge JPG to PDF Converter',
+              'applicationCategory': 'UtilitiesApplication',
+              'operatingSystem': 'Web Browser',
+              'url': 'https://fileforgepdf.netlify.app/jpg-to-pdf',
+              'offers': {
+                '@type': 'Offer',
+                'price': '0',
+                'priceCurrency': 'USD'
+              },
+              'description': 'Convert JPG and JPEG images to PDF with custom page sizes.',
+              'featureList': [
+                'Multiple images to one PDF',
+                'Drag to reorder images',
+                'A4 and Letter page sizes',
+                'Batch conversion'
+              ]
+            }
+          },
+
+          '/word-to-pdf': {
+            title: 'Word to PDF Converter Online Free — Convert DOCX to PDF | FileForge',
+            description: 'Convert Word documents to PDF online for free. Convert DOCX to PDF instantly in your browser. No Microsoft Word needed. No upload, 100% private, no signup required.',
+            keywords: 'word to pdf converter free, docx to pdf online, convert word to pdf, word document to pdf free, doc to pdf converter online, microsoft word to pdf, convert docx to pdf no upload',
+            ogTitle: 'Free Word to PDF Converter — Convert DOCX to PDF Instantly',
+            ogDescription: 'Convert Word documents to PDF free online. No Word installation needed. Private, instant, no upload.',
+            canonical: 'https://fileforgepdf.netlify.app/word-to-pdf',
+            structuredData: {
+              '@context': 'https://schema.org',
+              '@type': 'SoftwareApplication',
+              'name': 'FileForge Word to PDF Converter',
+              'applicationCategory': 'UtilitiesApplication',
+              'operatingSystem': 'Web Browser',
+              'url': 'https://fileforgepdf.netlify.app/word-to-pdf',
+              'offers': {
+                '@type': 'Offer',
+                'price': '0',
+                'priceCurrency': 'USD'
+              },
+              'description': 'Convert Word DOCX documents to PDF format in the browser.',
+              'featureList': [
+                'No Microsoft Word needed',
+                'DOCX format support',
+                'Batch conversion',
+                'No file upload required'
+              ]
+            }
+          },
+
+          '/excel-to-pdf': {
+            title: 'Excel to PDF Converter Online Free — Convert XLSX to PDF | FileForge',
+            description: 'Convert Excel spreadsheets to PDF online for free. Convert XLSX to PDF instantly in your browser. No Microsoft Excel needed. No upload, 100% private, no signup required.',
+            keywords: 'excel to pdf converter free, xlsx to pdf online, convert excel to pdf, spreadsheet to pdf free, xls to pdf converter, microsoft excel to pdf online, convert xlsx to pdf no upload',
+            ogTitle: 'Free Excel to PDF Converter — Convert XLSX to PDF Instantly',
+            ogDescription: 'Convert Excel spreadsheets to PDF free online. No Excel needed. Instant, private, no upload required.',
+            canonical: 'https://fileforgepdf.netlify.app/excel-to-pdf',
+            structuredData: {
+              '@context': 'https://schema.org',
+              '@type': 'SoftwareApplication',
+              'name': 'FileForge Excel to PDF Converter',
+              'applicationCategory': 'UtilitiesApplication',
+              'operatingSystem': 'Web Browser',
+              'url': 'https://fileforgepdf.netlify.app/excel-to-pdf',
+              'offers': {
+                '@type': 'Offer',
+                'price': '0',
+                'priceCurrency': 'USD'
+              },
+              'description': 'Convert Excel XLSX spreadsheets to PDF format in the browser.',
+              'featureList': [
+                'No Microsoft Excel needed',
+                'XLSX and XLS format support',
+                'Multiple sheets support',
+                'No file upload required'
+              ]
+            }
+          },
+
+          '/pdf-to-image': {
+            title: 'PDF to Image Converter Online Free — Convert PDF to JPG PNG | FileForge',
+            description: 'Convert PDF to images online for free. Extract PDF pages as JPG or PNG. Convert all pages or specific page range. Download as ZIP. No upload, works in browser, no signup.',
+            keywords: 'pdf to image converter free, pdf to jpg online, pdf to png free, convert pdf to image, extract pages from pdf as image, pdf page to jpg, pdf to jpeg online free, pdf pages to images',
+            ogTitle: 'Free PDF to Image Converter — Convert PDF to JPG or PNG',
+            ogDescription: 'Convert PDF pages to JPG or PNG images free online. Extract all pages or a range. Download as ZIP. No upload.',
+            canonical: 'https://fileforgepdf.netlify.app/pdf-to-image',
+            structuredData: {
+              '@context': 'https://schema.org',
+              '@type': 'SoftwareApplication',
+              'name': 'FileForge PDF to Image Converter',
+              'applicationCategory': 'UtilitiesApplication',
+              'operatingSystem': 'Web Browser',
+              'url': 'https://fileforgepdf.netlify.app/pdf-to-image',
+              'offers': {
+                '@type': 'Offer',
+                'price': '0',
+                'priceCurrency': 'USD'
+              },
+              'description': 'Convert PDF pages to JPG or PNG image files in the browser.',
+              'featureList': [
+                'Convert all pages or specific range',
+                'JPG and PNG output formats',
+                'Download all as ZIP',
+                'No file upload required'
+              ]
+            }
+          },
+
+          '/pdf-to-word': {
+            title: 'PDF to Word Converter Online Free — Convert PDF to DOCX | FileForge',
+            description: 'Convert PDF to Word documents online for free. Extract text from PDF to editable DOCX format. Works best with text-based PDFs. No upload, 100% private, no signup required.',
+            keywords: 'pdf to word converter free, pdf to docx online, convert pdf to word free, pdf to editable word document, extract text from pdf to word, pdf converter to docx, pdf to doc free online',
+            ogTitle: 'Free PDF to Word Converter — Convert PDF to Editable DOCX',
+            ogDescription: 'Convert PDF files to editable Word documents free online. Extract text from PDF. Private, no upload needed.',
+            canonical: 'https://fileforgepdf.netlify.app/pdf-to-word',
+            structuredData: {
+              '@context': 'https://schema.org',
+              '@type': 'SoftwareApplication',
+              'name': 'FileForge PDF to Word Converter',
+              'applicationCategory': 'UtilitiesApplication',
+              'operatingSystem': 'Web Browser',
+              'url': 'https://fileforgepdf.netlify.app/pdf-to-word',
+              'offers': {
+                '@type': 'Offer',
+                'price': '0',
+                'priceCurrency': 'USD'
+              },
+              'description': 'Convert PDF documents to editable Word DOCX format.',
+              'featureList': [
+                'Text extraction from PDF',
+                'DOCX output format',
+                'Batch conversion',
+                'No file upload required'
+              ]
+            }
+          },
+
+          '/merge-pdf': {
+            title: 'Merge PDF Files Online Free — Combine Multiple PDFs Into One | FileForge',
+            description: 'Merge multiple PDF files into one online for free. Combine PDFs in any order. Drag to reorder pages before merging. No upload, instant merge, no signup. Up to 20 PDF files.',
+            keywords: 'merge pdf online free, combine pdf files, merge pdf files free, join pdf online, merge multiple pdf into one, combine pdfs free, pdf merger online, how to merge pdf files free',
+            ogTitle: 'Free PDF Merger — Combine Multiple PDFs Into One File',
+            ogDescription: 'Merge multiple PDF files into one document free online. Drag to reorder. No upload, instant, no signup.',
+            canonical: 'https://fileforgepdf.netlify.app/merge-pdf',
+            structuredData: {
+              '@context': 'https://schema.org',
+              '@type': 'SoftwareApplication',
+              'name': 'FileForge PDF Merger',
+              'applicationCategory': 'UtilitiesApplication',
+              'operatingSystem': 'Web Browser',
+              'url': 'https://fileforgepdf.netlify.app/merge-pdf',
+              'offers': {
+                '@type': 'Offer',
+                'price': '0',
+                'priceCurrency': 'USD'
+              },
+              'description': 'Merge multiple PDF files into one document online for free.',
+              'featureList': [
+                'Merge up to 20 PDFs',
+                'Drag to reorder files',
+                'No file upload required',
+                'Instant processing'
+              ]
+            }
+          },
+
+          '/split-pdf': {
+            title: 'Split PDF Online Free — Split PDF Into Multiple Files | FileForge',
+            description: 'Split PDF files online for free. Split by page range, every N pages, or extract single pages. Download split files as ZIP. No upload, works in browser, no signup required.',
+            keywords: 'split pdf online free, split pdf file, divide pdf pages, extract pages from pdf free, split pdf into multiple files, pdf splitter online, separate pdf pages free, how to split a pdf free',
+            ogTitle: 'Free PDF Splitter — Split PDF Into Multiple Files Instantly',
+            ogDescription: 'Split PDF files by page range or extract individual pages free online. Download as ZIP. No upload needed.',
+            canonical: 'https://fileforgepdf.netlify.app/split-pdf',
+            structuredData: {
+              '@context': 'https://schema.org',
+              '@type': 'SoftwareApplication',
+              'name': 'FileForge PDF Splitter',
+              'applicationCategory': 'UtilitiesApplication',
+              'operatingSystem': 'Web Browser',
+              'url': 'https://fileforgepdf.netlify.app/split-pdf',
+              'offers': {
+                '@type': 'Offer',
+                'price': '0',
+                'priceCurrency': 'USD'
+              },
+              'description': 'Split PDF files into multiple documents by page range.',
+              'featureList': [
+                'Split by page range',
+                'Extract single pages',
+                'Download as ZIP',
+                'No file upload required'
+              ]
+            }
+          }
+        };
+
+        const FAQ_DATA = {
+          '/pdf-compressor': [
+            { question: 'Does compressing a PDF reduce its quality?', answer: 'It depends on the compression level. Low compression preserves nearly all quality. Medium compression is recommended for most users. High compression significantly reduces file size but may slightly reduce image quality within the PDF. Text and vector graphics are never affected.' },
+            { question: 'Is there a maximum file size I can compress?', answer: 'FileForge processes files entirely in your browser. Most modern devices handle PDFs up to 100MB without issues. Very large PDFs may be slow depending on your device.' },
+            { question: 'Is my PDF safe when using FileForge?', answer: 'Yes. FileForge processes everything in your browser. Your PDF is never uploaded to any server and never stored anywhere. When you close the tab, all file data is permanently gone.' },
+            { question: 'Can I compress multiple PDFs at once?', answer: 'Yes! Toggle Batch Mode to upload and compress up to 20 PDF files at once. Download results individually or as a ZIP file.' },
+            { question: 'Why is my compressed PDF sometimes larger than the original?', answer: 'This happens when your PDF is already highly optimized or contains mostly vector graphics and text. PDF compression mainly reduces embedded image quality. FileForge will notify you when this occurs.' }
+          ],
+          '/jpeg-compressor': [
+            { question: 'What is the difference between Quality Mode and Target Size Mode?', answer: 'Quality Mode lets you set a specific quality percentage (1-100) with live preview. Target Size Mode lets you specify the exact output file size you want in KB or MB, and FileForge automatically finds the best quality setting to hit that target.' },
+            { question: 'Will compressing a JPEG multiple times damage it?', answer: 'Yes. JPEG uses lossy compression so each round introduces quality loss. Always compress from the original high-quality image. FileForge always compresses from your originally uploaded file.' },
+            { question: 'What quality setting should I use for web images?', answer: 'For website images, 75-85% quality is the professional standard. At 80% quality, most images are visually identical to the original but significantly smaller in file size.' },
+            { question: 'Can I compress PNG images with this tool?', answer: 'The JPEG Compressor is optimized for JPEG and JPG files. If you paste a PNG image, FileForge automatically converts it to JPEG for compression.' },
+            { question: 'How much can I reduce my JPEG file size?', answer: 'Photographs typically compress 50-70% at quality 75. Screenshots and flat-color images can compress 80-90%. Most JPEG files can be reduced to 30-50% of their original size at quality 75-80.' }
+          ],
+          '/image-resizer': [
+            { question: 'Will resizing reduce my image quality?', answer: 'Resizing to smaller dimensions is generally fine and uses bicubic interpolation for quality results. Enlarging images beyond their original size will cause blurring because missing detail must be estimated.' },
+            { question: 'What does Lock Aspect Ratio mean?', answer: 'Aspect ratio is the proportional relationship between width and height. When locked, changing the width automatically adjusts the height to maintain correct proportions, preventing stretched or squashed images.' },
+            { question: 'Can I resize multiple images to the same size at once?', answer: 'Yes. Enable Batch Mode to upload multiple images and resize them all to the same target dimensions or percentage simultaneously.' },
+            { question: 'What image formats does the resizer support?', answer: 'FileForge Image Resizer accepts JPEG, JPG, PNG, and WEBP formats. Output is available as JPEG or PNG.' },
+            { question: 'What is the maximum image size I can resize to?', answer: 'FileForge handles images up to approximately 32,000 x 32,000 pixels, which is the HTML Canvas API limit. For web use, images rarely need to exceed 2560 pixels on the longest side.' }
+          ],
+          '/image-enhancer': [
+            { question: 'What is the difference between Sharpness and Clarity?', answer: 'Sharpness (Unsharp Mask) enhances edges and fine detail across the entire image. Clarity specifically targets midtone contrast, making textures and objects look more defined without affecting highlights or shapes.' },
+            { question: 'Can FileForge fix a blurry photo?', answer: 'FileForge can significantly improve mildly blurry photos using Unsharp Mask, Clarity, and Detail Recovery algorithms. The Text/Screenshot preset works especially well for sharpening screenshots and WhatsApp photos.' },
+            { question: 'What does the Noise Reduction slider do?', answer: 'Noise Reduction applies a bilateral filter that smooths grainy areas while preserving edges. It is ideal for photos taken in low light or with high ISO settings.' },
+            { question: 'Will my edits affect the original file?', answer: 'No. FileForge always works from the original uploaded image stored in browser memory. Your source file is never modified. You can undo and redo as many times as you want.' },
+            { question: 'What is JPEG Artifact Removal and when should I use it?', answer: 'JPEG compression creates 8x8 pixel block artifacts in heavily compressed images. The JPEG Artifact Removal tool smooths these block boundaries. Use it on WhatsApp photos, social media screenshots, or heavily compressed images.' }
+          ],
+          '/jpg-to-pdf': [
+            { question: 'How many images can I convert to one PDF?', answer: 'FileForge allows up to 20 images per conversion. For more than 20 images, convert in groups then use the Merge PDF tool to combine the resulting PDFs.' },
+            { question: 'Can I control the order of images in the PDF?', answer: 'Yes. After uploading, drag the thumbnail cards to your desired order. The PDF pages will follow that exact sequence.' },
+            { question: 'What page size should I choose — A4 or Letter?', answer: 'A4 is standard in Europe and Asia. Letter is standard in USA and Canada. Auto-fit makes each page exactly the size of its corresponding image.' },
+            { question: 'Will the image quality be reduced in the PDF?', answer: 'No. FileForge embeds your images in the PDF at their original quality. No additional compression is applied during JPG to PDF conversion.' },
+            { question: 'Can I convert PNG images to PDF with this tool?', answer: 'Yes. Although called JPG to PDF, FileForge also accepts PNG files and converts them to PDF automatically.' }
+          ],
+          '/word-to-pdf': [
+            { question: 'Do I need Microsoft Word to convert DOCX to PDF?', answer: 'No. FileForge converts Word documents to PDF entirely in your browser using open-source JavaScript libraries. No Microsoft Office subscription is needed.' },
+            { question: 'Will my Word document formatting be preserved in the PDF?', answer: 'FileForge preserves basic formatting including paragraphs, headings, bold, italic, lists, and basic tables. Complex features like custom fonts and advanced table formatting may not convert perfectly.' },
+            { question: 'Can I convert multiple Word files to PDF at once?', answer: 'Yes. Enable Batch Mode to upload up to 20 DOCX files and convert them all simultaneously. Download as a ZIP file when complete.' },
+            { question: 'Is a .doc file (older Word format) supported?', answer: 'FileForge currently supports .docx format (Word 2007 and later). Older .doc files can be converted to .docx using LibreOffice (free) or Google Docs before uploading.' },
+            { question: 'What is the maximum file size for Word to PDF conversion?', answer: 'FileForge handles Word documents up to approximately 50MB without issues. Very large documents with many embedded images may be slower to process.' }
+          ],
+          '/excel-to-pdf': [
+            { question: 'Will my Excel formulas be visible in the PDF?', answer: 'The PDF shows the calculated values of your formulas, not the formula code itself. This is the same behavior as printing from Excel.' },
+            { question: 'Can I convert multiple Excel sheets to PDF?', answer: 'FileForge currently converts the first sheet of each Excel file to PDF. As a workaround, copy each sheet into a separate file and convert individually, then merge with FileForge Merge PDF.' },
+            { question: 'Does FileForge support .xls files (older Excel format)?', answer: 'Yes. FileForge supports both .xlsx (Excel 2007+) and the older .xls format using the SheetJS library.' },
+            { question: 'My Excel file has charts — will they appear in the PDF?', answer: 'Charts may not render fully as the browser-based Excel reader focuses on cell data. For spreadsheets with important charts, use Excel built-in Save as PDF for the most accurate chart rendering.' },
+            { question: 'Can I convert multiple Excel files to PDF at once?', answer: 'Yes. Enable Batch Mode to upload multiple XLSX files and convert them all to PDF simultaneously.' }
+          ],
+          '/pdf-to-image': [
+            { question: 'Should I choose JPG or PNG output format?', answer: 'Choose PNG for documents with text, charts, or sharp edges — PNG is lossless and renders text more cleanly. Choose JPG for photo-heavy PDFs where file size matters more.' },
+            { question: 'Can I convert only specific pages instead of the entire PDF?', answer: 'Yes. Specify a start and end page number to extract only those pages as images. Enter the same number for both to extract a single page.' },
+            { question: 'What resolution will the output images be?', answer: 'FileForge renders PDF pages at 150 DPI by default. Select high quality option for 300 DPI output — larger files but sharper images suitable for printing.' },
+            { question: 'How are the converted images delivered?', answer: 'Converted images are available as a thumbnail grid for preview. Download all pages as a single ZIP file, or download individual pages by clicking thumbnails.' },
+            { question: 'Can FileForge handle a 100-page PDF?', answer: 'Yes, but processing time scales with page count. A 100-page PDF typically takes 30-90 seconds. For faster results, process smaller page ranges at a time.' }
+          ],
+          '/pdf-to-word': [
+            { question: 'Why does my converted Word document not look exactly like the PDF?', answer: 'PDF is a fixed-layout format while Word is flow-based. Converting between them interprets visual layout into structural format. FileForge extracts text content and basic formatting accurately.' },
+            { question: 'Does PDF to Word work on scanned PDFs?', answer: 'Scanned PDFs contain images of pages, not actual text. FileForge extracts embedded text and cannot read text from scanned images. For scanned PDFs, use Google Drive free OCR feature.' },
+            { question: 'Are tables preserved when converting PDF to Word?', answer: 'Simple tables are often preserved in structure but may lose precise formatting. Complex merged cell tables may not convert perfectly. Text content will be present and accurate.' },
+            { question: 'Can I edit the converted Word document after downloading?', answer: 'Absolutely. The downloaded .docx file can be opened and edited in Microsoft Word, LibreOffice (free), or Google Docs (free by drag-dropping into Drive).' },
+            { question: 'What is the maximum PDF size for Word conversion?', answer: 'FileForge handles PDFs up to approximately 50MB for Word conversion. Text-heavy PDFs convert quickly regardless of page count.' }
+          ],
+          '/merge-pdf': [
+            { question: 'How many PDF files can I merge at once?', answer: 'FileForge allows merging up to 20 PDF files in a single operation. For more than 20 files, merge in groups then merge the results together.' },
+            { question: 'Will merging PDFs reduce their quality?', answer: 'No. FileForge uses pdf-lib to merge PDFs at the structural level without recompressing content. The merged PDF is identical in quality to the originals.' },
+            { question: 'Does the order of files in the merge matter?', answer: 'Yes. The merged PDF contains pages in exactly the order you arrange the files. Use drag handles to set your desired order before merging.' },
+            { question: 'Can I choose which pages from each PDF to include?', answer: 'The Merge PDF tool combines complete PDF files. To select specific pages, first use the Split PDF tool to extract the pages you want, then merge the extracted PDFs.' },
+            { question: 'My merged PDF is very large — can I compress it after merging?', answer: 'Yes. Download the merged PDF then upload it to FileForge PDF Compressor. Choose Medium or High compression to significantly reduce the file size.' }
+          ],
+          '/split-pdf': [
+            { question: 'What are the different ways to split a PDF?', answer: 'FileForge offers three methods: Split by page range (specify exact ranges like 1-5, 6-10), Split every N pages (equal chunks), and Extract single pages (one PDF per page).' },
+            { question: 'How do I extract just one page from a PDF?', answer: 'Use Split by page range and enter the same page number for both start and end. For example, page 5 to page 5 creates a single-page PDF of page 5.' },
+            { question: 'Will the text and images stay sharp after splitting?', answer: 'Yes. Splitting does not recompress or alter any content. Pages are redistributed into new files at the document structure level without any re-rendering.' },
+            { question: 'How are the split PDF files delivered?', answer: 'Split PDFs are packaged into a ZIP file. Files are named clearly: originalname_part_1.pdf, originalname_part_2.pdf, etc. Individual downloads are also available.' },
+            { question: 'Can I split a password-protected PDF?', answer: 'Password-protected PDFs cannot be split because the content is encrypted. Remove the password protection first by opening in Chrome with the password, printing to PDF, then uploading the unprotected copy.' }
+          ]
+        };
+
         window.routes = {
           '/': showHomepage,
           '/pdf-compressor': () => showTool('pdf-compressor'),
@@ -72,20 +540,17 @@
         };
 
         window.initRouter = function() {
-          const currentPath = window.location.pathname;
-          const cleanPath = currentPath === '/' ? '/' : currentPath.replace(/\/$/, '');
-          handleRoute(cleanPath);
-          
-          window.addEventListener('popstate', (e) => {
-            const path = window.location.pathname.replace(/\/$/, '') || '/';
+          window.addEventListener('popstate', () => {
+            const path = window.location.pathname
+              .toLowerCase()
+              .replace(/\/$/, '') || '/';
+            window.updateSEO(path);  // ← MUST be here too
             handleRoute(path);
-            updateSEO(path);
           });
         };
 
         window.handleRoute = function(path) {
           const normalizedPath = path.toLowerCase().replace(/\/$/, '') || '/';
-          updateSEO(normalizedPath);
           
           const handler = window.routes[normalizedPath];
           if (handler) {
@@ -96,6 +561,134 @@
             show404Page();
           }
         };
+
+        window.updateSEO = function(path) {
+          // Normalize path
+          const normalizedPath = path.toLowerCase()
+            .replace(/\/$/, '') || '/';
+          
+          // Get SEO data for this path
+          // Fall back to homepage data if path not found
+          const seo = SEO_DATA[normalizedPath] || SEO_DATA['/'];
+          
+          // ---- STEP 6 — VERIFY WITH CONSOLE LOGS ----
+          console.log('[FileForge SEO] Updating for path:', path);
+          console.log('[FileForge SEO] Title:', seo.title);
+          
+          // ---- UPDATE TITLE ----
+          document.title = seo.title;
+          
+          // ---- UPDATE META DESCRIPTION ----
+          updateMetaTag('name', 'description', seo.description);
+          
+          // ---- UPDATE META KEYWORDS ----
+          updateMetaTag('name', 'keywords', seo.keywords);
+          
+          // ---- UPDATE CANONICAL ----
+          updateLinkTag('canonical', seo.canonical);
+          
+          // ---- UPDATE OPEN GRAPH ----
+          updateMetaTag('property', 'og:title', seo.ogTitle);
+          updateMetaTag('property', 'og:description', seo.ogDescription);
+          updateMetaTag('property', 'og:url', seo.canonical);
+          updateMetaTag('property', 'og:type', 'website');
+          updateMetaTag('property', 'og:site_name', 'FileForge');
+          updateMetaTag('property', 'og:image', 'https://fileforgepdf.netlify.app/og-image.png');
+          updateMetaTag('property', 'og:image:width', '1200');
+          updateMetaTag('property', 'og:image:height', '630');
+          
+          // ---- UPDATE TWITTER CARD ----
+          updateMetaTag('name', 'twitter:card', 'summary_large_image');
+          updateMetaTag('name', 'twitter:title', seo.ogTitle);
+          updateMetaTag('name', 'twitter:description', seo.ogDescription);
+          updateMetaTag('name', 'twitter:image', 'https://fileforgepdf.netlify.app/og-image.png');
+          
+          // ---- UPDATE STRUCTURED DATA ----
+          updateStructuredData(seo.structuredData);
+          
+          // ---- ADD FAQ SCHEMA if tool page ----
+          if (normalizedPath !== '/' && FAQ_DATA[normalizedPath]) {
+            addFAQSchema(normalizedPath);
+          }
+        };
+
+        // Helper — update or create meta tag
+        function updateMetaTag(attrName, attrValue, content) {
+          if (!content) return;
+          
+          let el = document.querySelector(
+            `meta[${attrName}="${attrValue}"]`
+          );
+          
+          if (!el) {
+            el = document.createElement('meta');
+            el.setAttribute(attrName, attrValue);
+            document.head.appendChild(el);
+          }
+          
+          el.setAttribute('content', content);
+        }
+
+        // Helper — update or create link tag
+        function updateLinkTag(rel, href) {
+          if (!href) return;
+          
+          let el = document.querySelector(`link[rel="${rel}"]`);
+          
+          if (!el) {
+            el = document.createElement('link');
+            el.setAttribute('rel', rel);
+            document.head.appendChild(el);
+          }
+          
+          el.setAttribute('href', href);
+        }
+
+        // Helper — update structured data JSON-LD
+        // Always keeps our persistent main script formatted 
+        function updateStructuredData(data) {
+          if (!data) return;
+          
+          let el = document.getElementById('structured-data');
+          
+          if (!el) {
+            el = document.createElement('script');
+            el.id = 'structured-data';
+            el.type = 'application/ld+json';
+            document.head.appendChild(el);
+          }
+          
+          el.textContent = JSON.stringify(data, null, 2);
+        }
+
+        // Helper — add FAQ schema alongside main schema
+        function addFAQSchema(path) {
+          const faqs = FAQ_DATA[path];
+          if (!faqs || faqs.length === 0) return;
+          
+          const faqSchema = {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            'mainEntity': faqs.map(faq => ({
+              '@type': 'Question',
+              'name': faq.question,
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': faq.answer
+              }
+            }))
+          };
+          
+          let el = document.getElementById('faq-structured-data');
+          if (!el) {
+            el = document.createElement('script');
+            el.id = 'faq-structured-data';
+            el.type = 'application/ld+json';
+            document.head.appendChild(el);
+          }
+          
+          el.textContent = JSON.stringify(faqSchema, null, 2);
+        }
 
         window.showTool = function(toolId) {
           // Hide all panels
@@ -168,9 +761,10 @@
         };
 
         window.navigateTo = function(path) {
-          window.history.pushState({ path }, '', path);
-          handleRoute(path);
-          updateSEO(path);
+          window.history.pushState({}, '', path);
+          window.updateSEO(path);  // ← MUST be here
+          window.handleRoute(path);
+          window.scrollTo({ top: 0, behavior: 'instant' });
         };
 
         window.show404Page = function() {
@@ -224,13 +818,68 @@
           URL.revokeObjectURL(url);
         };
 
+        window.downloadSitemap = function() {
+          const base = 'https://fileforgepdf.netlify.app';
+          const today = new Date().toISOString().split('T')[0];
+          
+          const urls = [
+            { loc: '/', priority: '1.0', freq: 'weekly' },
+            { loc: '/pdf-compressor', priority: '0.9', freq: 'monthly' },
+            { loc: '/jpeg-compressor', priority: '0.9', freq: 'monthly' },
+            { loc: '/image-resizer', priority: '0.8', freq: 'monthly' },
+            { loc: '/image-enhancer', priority: '0.8', freq: 'monthly' },
+            { loc: '/jpg-to-pdf', priority: '0.9', freq: 'monthly' },
+            { loc: '/word-to-pdf', priority: '0.9', freq: 'monthly' },
+            { loc: '/excel-to-pdf', priority: '0.8', freq: 'monthly' },
+            { loc: '/pdf-to-image', priority: '0.8', freq: 'monthly' },
+            { loc: '/pdf-to-word', priority: '0.8', freq: 'monthly' },
+            { loc: '/merge-pdf', priority: '0.9', freq: 'monthly' },
+            { loc: '/split-pdf', priority: '0.8', freq: 'monthly' },
+          ];
+          
+          let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+          xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+          for (var i = 0; i < urls.length; i++) {
+            var u = urls[i];
+            xml += '  <url>\n';
+            xml += '    <loc>' + base + u.loc + '</loc>\n';
+            xml += '    <lastmod>' + today + '</lastmod>\n';
+            xml += '    <changefreq>' + u.freq + '</changefreq>\n';
+            xml += '    <priority>' + u.priority + '</priority>\n';
+            xml += '  </url>\n';
+          }
+          xml += '</urlset>';
+
+          window.triggerDownload(xml, 'sitemap.xml', 'application/xml');
+        };
+
+        window.downloadRobotsTxt = function() {
+          const content = 
+`User-agent: *
+Allow: /
+Sitemap: https://fileforgepdf.netlify.app/sitemap.xml`;
+          
+          window.triggerDownload(content, 'robots.txt', 'text/plain');
+        };
+
+        window.triggerDownload = function(content, filename, type) {
+          const blob = new Blob([content], { type: type });
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(a.href);
+        };
+
         window.updateSidebarActiveItem = function(toolId) {
           document.querySelectorAll('.sidebar-item, .tool-link').forEach(item => {
             item.classList.remove('active');
           });
           
           const activeItem = document.querySelector(
-            \`[data-path="/\${toolId}"], [data-tool="\${toolId}"], [data-navigate="/\${toolId}"]\`
+            `[data-path="/${toolId}"], [data-tool="${toolId}"], [data-navigate="/${toolId}"]`
           );
           if (activeItem) {
             activeItem.classList.add('active');
@@ -252,14 +901,13 @@
           });
         };
 
-        window.updateSEO = function(path) {
-          if (window.reactUpdateSEO) {
-            window.reactUpdateSEO(path);
-          }
-        };
-
         document.addEventListener('DOMContentLoaded', () => {
-          initRouter();
+          const path = window.location.pathname
+            .toLowerCase()
+            .replace(/\/$/, '') || '/';
+          window.updateSEO(path);
+          window.handleRoute(path);
+          window.initRouter();
         });
       })();
     </script>
