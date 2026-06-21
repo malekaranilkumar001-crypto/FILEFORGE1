@@ -1903,31 +1903,25 @@ export default function App() {
                 📄 Netlify Redirects
               </button>
               <span className="text-border-dark">·</span>
-              <button 
-                type="button" 
-                onClick={(e) => { 
-                  e.preventDefault(); 
-                  const ds = (window as any).downloadSitemap;
-                  if (ds) ds();
-                }} 
+              <a 
+                href="/sitemap.xml" 
+                target="_blank"
                 className="hover:text-primary-accent text-text-sub transition-colors bg-transparent border-none p-0 cursor-pointer flex items-center gap-1"
-                title="Download sitemap.xml"
+                title="View sitemap.xml"
+                rel="noreferrer"
               >
                 Sitemap
-              </button>
+              </a>
               <span className="text-border-dark">·</span>
-              <button 
-                type="button" 
-                onClick={(e) => { 
-                  e.preventDefault(); 
-                  const dr = (window as any).downloadRobotsTxt;
-                  if (dr) dr();
-                }} 
+              <a 
+                href="/robots.txt" 
+                target="_blank"
                 className="hover:text-primary-accent text-text-sub transition-colors bg-transparent border-none p-0 cursor-pointer flex items-center gap-1"
-                title="Download robots.txt"
+                title="View robots.txt"
+                rel="noreferrer"
               >
                 Robots.txt
-              </button>
+              </a>
               <span className="text-border-dark">·</span>
               <button 
                 type="button" 
