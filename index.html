@@ -50,6 +50,219 @@
     
     <!-- docx.js (for HTML/text to Word DOCX creation) -->
     <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+    
+    <script>
+      // Global routing bridge to meet all 10 client-side router specifications
+      // while delegating smoothly to our high-fidelity React application!
+      (function() {
+        window.routes = {
+          '/': showHomepage,
+          '/pdf-compressor': () => showTool('pdf-compressor'),
+          '/jpeg-compressor': () => showTool('jpeg-compressor'),
+          '/image-resizer': () => showTool('image-resizer'),
+          '/image-enhancer': () => showTool('image-enhancer'),
+          '/jpg-to-pdf': () => showTool('jpg-to-pdf'),
+          '/word-to-pdf': () => showTool('word-to-pdf'),
+          '/excel-to-pdf': () => showTool('excel-to-pdf'),
+          '/pdf-to-image': () => showTool('pdf-to-image'),
+          '/pdf-to-word': () => showTool('pdf-to-word'),
+          '/merge-pdf': () => showTool('merge-pdf'),
+          '/split-pdf': () => showTool('split-pdf'),
+          '/privacy': showPrivacyPage,
+        };
+
+        window.initRouter = function() {
+          const currentPath = window.location.pathname;
+          const cleanPath = currentPath === '/' ? '/' : currentPath.replace(/\/$/, '');
+          handleRoute(cleanPath);
+          
+          window.addEventListener('popstate', (e) => {
+            const path = window.location.pathname.replace(/\/$/, '') || '/';
+            handleRoute(path);
+            updateSEO(path);
+          });
+        };
+
+        window.handleRoute = function(path) {
+          const normalizedPath = path.toLowerCase().replace(/\/$/, '') || '/';
+          updateSEO(normalizedPath);
+          
+          const handler = window.routes[normalizedPath];
+          if (handler) {
+            handler();
+            updateActiveNavItem(normalizedPath);
+            window.scrollTo({ top: 0, behavior: 'instant' });
+          } else {
+            show404Page();
+          }
+        };
+
+        window.showTool = function(toolId) {
+          // Hide all panels
+          document.querySelectorAll('.tool-panel').forEach(panel => {
+            panel.style.display = 'none';
+            panel.classList.remove('active');
+          });
+          
+          const homepage = document.getElementById('homepage');
+          if (homepage) homepage.style.display = 'none';
+          
+          const panel = document.getElementById('tool-' + toolId);
+          if (panel) {
+            panel.style.display = 'block';
+            panel.classList.add('active');
+          }
+          
+          updateSidebarActiveItem(toolId);
+          
+          const toolNames = {
+            'pdf-compressor': 'PDF Compressor',
+            'jpeg-compressor': 'JPEG Compressor',
+            'image-resizer': 'Image Resizer',
+            'image-enhancer': 'Image Enhancer',
+            'jpg-to-pdf': 'JPG to PDF',
+            'word-to-pdf': 'Word to PDF',
+            'excel-to-pdf': 'Excel to PDF',
+            'pdf-to-image': 'PDF to Image',
+            'pdf-to-word': 'PDF to Word',
+            'merge-pdf': 'Merge PDF',
+            'split-pdf': 'Split PDF',
+          };
+          
+          const breadcrumb = document.getElementById('breadcrumb');
+          if (breadcrumb) {
+            breadcrumb.innerHTML = `
+              <span onclick="navigateTo('/')" 
+                style="cursor:pointer; color:var(--text-muted); hover:color:var(--accent)">Home</span>
+              <span style="color:var(--text-muted); margin:0 8px;">→</span>
+              <span style="color:var(--text-primary)">
+                \${toolNames[toolId] || toolId}
+              </span>
+            `;
+          }
+
+          // React app bridge delegation
+          if (window.reactSetActiveTool) {
+            window.reactSetActiveTool(toolId);
+          }
+        };
+
+        window.showHomepage = function() {
+          document.querySelectorAll('.tool-panel').forEach(panel => {
+            panel.style.display = 'none';
+            panel.classList.remove('active');
+          });
+          const homepage = document.getElementById('homepage');
+          if (homepage) homepage.style.display = 'block';
+
+          // React app bridge delegation
+          if (window.reactSetActiveTool) {
+            window.reactSetActiveTool('home');
+          }
+        };
+
+        window.showPrivacyPage = function() {
+          if (window.reactSetActiveTool) {
+            window.reactSetActiveTool('privacy');
+          }
+        };
+
+        window.navigateTo = function(path) {
+          window.history.pushState({ path }, '', path);
+          handleRoute(path);
+          updateSEO(path);
+        };
+
+        window.show404Page = function() {
+          document.querySelectorAll('.tool-panel').forEach(p => {
+            p.style.display = 'none';
+          });
+          const homepage = document.getElementById('homepage');
+          if (homepage) homepage.style.display = 'none';
+          
+          let panel404 = document.getElementById('page-404');
+          if (!panel404) {
+            panel404 = document.createElement('div');
+            panel404.id = 'page-404';
+            panel404.innerHTML = `
+              <div style="text-align:center; padding:80px 20px;">
+                <div style="font-size:80px; margin-bottom:16px;">🔍</div>
+                <h1 style="font-size:48px; color:var(--accent); 
+                  font-family:'Plus Jakarta Sans',sans-serif; 
+                  margin-bottom:16px;">404</h1>
+                <p style="font-size:20px; color:var(--text-primary);
+                  margin-bottom:8px;">Page not found</p>
+                <p style="color:var(--text-muted); margin-bottom:32px;">
+                  The tool you are looking for does not exist.</p>
+                <button onclick="navigateTo('/')"
+                  style="background:var(--accent); color:white;
+                  border:none; padding:14px 28px; border-radius:10px;
+                  font-size:15px; cursor:pointer; 
+                  font-family:'Plus Jakarta Sans',sans-serif;">
+                  ← Back to All Tools
+                </button>
+              </div>
+            `;
+            document.body.appendChild(panel404);
+          }
+          panel404.style.display = 'block';
+
+          // React app bridge delegation
+          if (window.reactSetActiveTool) {
+            window.reactSetActiveTool('404');
+          }
+        };
+
+        window.downloadRedirectsFile = function() {
+          const content = '/* /index.html 200\\n';
+          const blob = new Blob([content], { type: 'text/plain' });
+          const a = document.createElement('a');
+          const url = URL.createObjectURL(blob);
+          a.href = url;
+          a.download = '_redirects';
+          a.click();
+          URL.revokeObjectURL(url);
+        };
+
+        window.updateSidebarActiveItem = function(toolId) {
+          document.querySelectorAll('.sidebar-item, .tool-link').forEach(item => {
+            item.classList.remove('active');
+          });
+          
+          const activeItem = document.querySelector(
+            \`[data-path="/\${toolId}"], [data-tool="\${toolId}"], [data-navigate="/\${toolId}"]\`
+          );
+          if (activeItem) {
+            activeItem.classList.add('active');
+            activeItem.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'nearest' 
+            });
+          }
+        };
+
+        window.updateActiveNavItem = function(normalizedPath) {
+          document.querySelectorAll('[data-navigate]').forEach(item => {
+            const attr = item.getAttribute('data-navigate');
+            if (attr === normalizedPath) {
+              item.classList.add('active');
+            } else {
+              item.classList.remove('active');
+            }
+          });
+        };
+
+        window.updateSEO = function(path) {
+          if (window.reactUpdateSEO) {
+            window.reactUpdateSEO(path);
+          }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+          initRouter();
+        });
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

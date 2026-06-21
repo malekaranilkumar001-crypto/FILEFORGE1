@@ -140,7 +140,7 @@ function updateStructuredData(data: any) {
 }
 
 function updateSEO(path: string) {
-  let cleanPath = path;
+  let cleanPath = path.toLowerCase().trim();
   if (cleanPath.endsWith('/') && cleanPath.length > 1) {
     cleanPath = cleanPath.slice(0, -1);
   }
@@ -482,13 +482,18 @@ export default function App() {
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
 
-  // Hook up sync effect for History URL tracking
+  // Hook up sync effect for History URL tracking with bidirectional routing support
   React.useEffect(() => {
     const handlePopState = () => {
-      const path = window.location.pathname;
-      let cleanPath = path;
+      const parentPath = window.location.pathname;
+      let cleanPath = parentPath.toLowerCase().trim();
+      
+      // Remove trailing slash except for root
       if (cleanPath.endsWith('/') && cleanPath.length > 1) {
         cleanPath = cleanPath.slice(0, -1);
+      }
+      if (cleanPath === '') {
+        cleanPath = '/';
       }
       
       const mapped = urlToToolMap[cleanPath];
@@ -505,7 +510,7 @@ export default function App() {
         setActiveTool(mapped as ToolId);
         setIs404(false);
       } else {
-        if (cleanPath === '' || cleanPath === '/') {
+        if (cleanPath === '/' || cleanPath === '/index.html') {
           setPrivacyOpen(false);
           setActiveTool('home');
           setIs404(false);
@@ -529,17 +534,67 @@ export default function App() {
         if (path) {
           window.history.pushState({}, '', path);
           handlePopState();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          window.scrollTo({ top: 0, behavior: 'instant' });
         }
       }
     };
     document.addEventListener('click', handleDataNavClick);
+
+    // Register active tool bridging callback
+    (window as any).reactSetActiveTool = (targetId: string) => {
+      const toolIdMapping: Record<string, ToolId | 'home' | 'privacy' | '404'> = {
+        'home': 'home',
+        'privacy': 'privacy',
+        '404': '404',
+        'pdf-compressor': 'pdf-compress',
+        'jpeg-compressor': 'jpeg-compress',
+        'image-resizer': 'image-resize',
+        'image-enhancer': 'image-enhance',
+        'jpg-to-pdf': 'jpeg-to-pdf',
+        'word-to-pdf': 'word-to-pdf',
+        'excel-to-pdf': 'excel-to-pdf',
+        'pdf-to-image': 'pdf-to-image',
+        'pdf-to-word': 'pdf-to-word',
+        'merge-pdf': 'merge-pdf',
+        'split-pdf': 'split-pdf',
+        'pdf-compress': 'pdf-compress',
+        'jpeg-compress': 'jpeg-compress',
+        'image-resize': 'image-resize',
+        'image-enhance': 'image-enhance'
+      };
+
+      const mapped = toolIdMapping[targetId] || targetId;
+      if (mapped === '404') {
+        setIs404(true);
+        setActiveTool('home');
+        setPrivacyOpen(false);
+      } else if (mapped === 'privacy') {
+        setIs404(false);
+        setActiveTool('home');
+        setPrivacyOpen(true);
+      } else if (mapped === 'home') {
+        setIs404(false);
+        setActiveTool('home');
+        setPrivacyOpen(false);
+      } else if (mapped) {
+        setIs404(false);
+        setActiveTool(mapped as ToolId);
+        setPrivacyOpen(false);
+      }
+    };
+
+    // Register SEO bridging callback
+    (window as any).reactUpdateSEO = (path: string) => {
+      updateSEO(path);
+    };
 
     handlePopState();
 
     return () => {
       window.removeEventListener('popstate', handlePopState);
       document.removeEventListener('click', handleDataNavClick);
+      delete (window as any).reactSetActiveTool;
+      delete (window as any).reactUpdateSEO;
     };
   }, []);
 
@@ -554,9 +609,24 @@ export default function App() {
       expectedPath = toolToUrlMap[activeTool] || '/';
     }
 
-    if (window.location.pathname !== expectedPath && !is404) {
+    if (window.location.pathname.toLowerCase() !== expectedPath.toLowerCase() && !is404) {
       window.history.pushState({}, '', expectedPath);
       updateSEO(expectedPath);
+    }
+    
+    // Scroll active sidebar item into view
+    if (activeTool && activeTool !== 'home') {
+      const activeElement = document.querySelector(`[data-navigate="${toolToUrlMap[activeTool]}"]`);
+      if (activeElement) {
+        activeElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+      // Sync global sidebar items if any
+      const globalUpdate = (window as any).updateSidebarActiveItem;
+      if (globalUpdate) {
+        let key = toolToUrlMap[activeTool];
+        if (key && key.startsWith('/')) key = key.slice(1);
+        globalUpdate(key);
+      }
     }
   }, [activeTool, privacyOpen, is404]);
 
@@ -1574,16 +1644,16 @@ export default function App() {
             {is404 ? (
               
               /* 404 PAGE - Invalid URL */
-              <div className="max-w-md mx-auto text-center py-16 space-y-6 animate-fade-in">
+              <div className="max-w-md mx-auto text-center py-16 space-y-6 animate-fade-in" id="page-404">
                 <h1 className="text-8xl font-display font-extrabold text-[#6C63FF] leading-none drop-shadow-md">
                   404
                 </h1>
                 <div className="space-y-2">
                   <h2 className="text-2xl font-display font-bold text-text-light">
-                    Utility tool not found
+                    Page not found
                   </h2>
                   <p className="text-sm text-text-sub font-display max-w-sm mx-auto leading-relaxed">
-                    The URL path seems to have dissolved into the void. All FileForge tools execute entirely inside your local safe sandbox.
+                    The tool you are looking for does not exist. All FileForge tools execute entirely inside your local safe sandbox.
                   </p>
                 </div>
                 <button
@@ -1592,8 +1662,7 @@ export default function App() {
                   onClick={(e) => { e.preventDefault(); setActiveTool('home'); setIs404(false); }}
                   className="px-6 py-3 bg-primary-accent hover:bg-primary-accent/90 text-text-light font-display font-medium rounded-xl transition-all shadow-lg hover:shadow-primary-accent/20 cursor-pointer inline-flex items-center gap-2"
                 >
-                  <Home className="w-4 h-4" />
-                  Go to Control Hub
+                  ← Back to All Tools
                 </button>
               </div>
             ) : activeTool === 'home' ? (
@@ -1804,6 +1873,30 @@ export default function App() {
                 title="Keyboard Shortcuts Cheatsheet Panel"
               >
                 ⌨ Shortcuts
+              </button>
+              <span className="text-border-dark">·</span>
+              <button 
+                type="button" 
+                onClick={(e) => { 
+                  e.preventDefault(); 
+                  const d = (window as any).downloadRedirectsFile;
+                  if (d) {
+                    d();
+                  } else {
+                    const content = '/* /index.html 200\n';
+                    const blob = new Blob([content], { type: 'text/plain' });
+                    const a = document.createElement('a');
+                    const url = URL.createObjectURL(blob);
+                    a.href = url;
+                    a.download = '_redirects';
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }
+                }} 
+                className="hover:text-primary-accent text-text-sub transition-colors bg-transparent border-none p-0 cursor-pointer flex items-center gap-1 opacity-70 hover:opacity-100"
+                title="Download Netlify _redirects configuration file"
+              >
+                📄 Netlify Redirects
               </button>
               <span className="text-border-dark">·</span>
               <button 
